@@ -7,7 +7,16 @@
 
   <!-- Fontes elegantes -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
   <style>
     :root {
       --primary-default: #d3b37c;
@@ -294,7 +303,6 @@
       width: 1280px;
       height: 427px;
       background: radial-gradient(circle at top left, #2b2721 0, #171614 35%, #131212 100%);
-      border-radius: var(--border-radius);
       display: grid;
       grid-template-columns: 2fr 3fr;
       overflow: hidden;
@@ -463,7 +471,6 @@
     .voucher-left-label {
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
       padding-bottom: 3px;
       display: inline-block;
     }
@@ -541,9 +548,6 @@
     .voucher-product-block {
       margin-top: 6px;
       padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.8));
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -607,14 +611,15 @@
       align-items: center;
       gap: 6px;
       padding: 4px 9px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .voucher-footer-pill span.symbol {
       font-size: 13px;
       opacity: 0.9;
+    }
+
+    .voucher-footer-pill .ph {
+        font-size: 15px;
     }
 
     .voucher-footer-right {
@@ -637,6 +642,7 @@
       color: #8c8c8c;
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -664,26 +670,19 @@
 
               <div class="voucher-left-inner">
                 <div>
-                  <div class="voucher-tag">
-                    <span class="voucher-tag-dot"></span>
-                    <span id="voucher-left-line1">Liliana Guerra</span>
-                  </div>
                   <div style="margin-top: 10px;">
                     <div class="voucher-left-title" id="voucher-left-name">
                       Liliana&nbsp;Guerra
                     </div>
                     <div class="voucher-left-sub" id="voucher-left-subtitle">
-                      Osteopatia · Massagens · Estética
+                      <!-- Osteopatia · Massagens · Estética -->
                     </div>
                   </div>
                 </div>
 
                 <div class="voucher-left-bottom">
                   <div class="voucher-left-label">
-                    Saúde &amp; bem-estar
-                  </div>
-                  <div class="voucher-left-date" id="voucher-date">
-                    Gerado em <span id="voucher-date-text"></span>
+                    <!-- Saúde &amp; bem-estar -->
                   </div>
                 </div>
               </div>
@@ -692,17 +691,12 @@
             <!-- Direita -->
             <div class="voucher-right">
               <div class="voucher-right-inner">
-                <div class="voucher-pill">
-                  <span class="voucher-pill-accent"></span>
-                  <span>Vale Oferta</span>
-                </div>
-
                 <div>
                   <div class="voucher-main-title" id="voucher-main-title">
                     Vale Oferta
                   </div>
                   <div class="voucher-subtitle" id="voucher-subtitle">
-                    Osteopatia, Massagens e Tratamentos de Estética.
+                    
                   </div>
 
                   <div class="voucher-product-block">
@@ -715,7 +709,7 @@
                   </div>
 
                   <div class="voucher-note" id="voucher-note">
-                    Este vale oferta é pessoal e intransmissível. Mediante marcação prévia e sujeito à disponibilidade.
+                    
                   </div>
                 </div>
               </div>
@@ -725,11 +719,11 @@
                   <div class="voucher-footer-label">Contactos</div>
                   <div class="voucher-footer-values">
                     <div class="voucher-footer-pill">
-                      <span class="symbol">📞</span>
-                      <span id="voucher-phone">+351 912 345 678</span>
+                      <i class="ph ph-whatsapp-logo"></i>
+                      <span id="voucher-phone">932 306 630</span>
                     </div>
                     <div class="voucher-footer-pill">
-                      <span class="symbol">📘</span>
+                      <i class="ph ph-facebook-logo"></i>
                       <span id="voucher-facebook">facebook.com/lilianaguerra.osteopatia</span>
                     </div>
                   </div>
@@ -737,7 +731,6 @@
                 <div class="voucher-footer-right">
                   <strong>Liliana&nbsp;Guerra</strong>
                   <span>Osteopatia · Massagens · Estética</span><br />
-                  <span class="print-hint">Sugestão: para imprimir, use o modo paisagem e desative cabeçalho/rodapé do browser.</span>
                 </div>
               </div>
             </div>
@@ -765,7 +758,7 @@
 
           <div class="form-group">
             <label for="subtitle">Subtítulo</label>
-            <input class="input" id="subtitle" type="text" value="Osteopatia, Massagens e Tratamentos de Estética" />
+            <input class="input" id="subtitle" type="text" value="" />
             <small>Descrição principal dos serviços.</small>
           </div>
 
@@ -778,13 +771,13 @@
           <div class="form-group">
             <label for="note">Nota adicional (opcional)</label>
             <input class="input" id="note" type="text"
-              value="Válido por 6 meses após a data de emissão. Mediante marcação prévia." />
+              value="" />
             <small>Condições, validade, etc. Pode deixar em branco.</small>
           </div>
 
           <div class="form-group">
             <label for="phone">Telemóvel</label>
-            <input class="input" id="phone" type="text" value="+351 912 345 678" />
+            <input class="input" id="phone" type="text" value="932 306 630" />
             <small>Será mostrado no rodapé.</small>
           </div>
 
@@ -840,6 +833,10 @@
               <span class="icon">↺</span>
               Repor valores de exemplo
             </button>
+            <button class="btn" id="download-btn" type="button" style="margin-left: 8px;">
+              <span class="icon">⬇</span>
+              Download do Voucher
+            </button>
           </div>
           <div>
             <span class="print-hint">Dica: depois de preencher, use o Ctrl+P (ou Imprimir) para guardar como PDF ou
@@ -864,7 +861,6 @@
       const imageUrlInput = document.getElementById("image-url");
       const resetBtn = document.getElementById("reset-btn");
 
-      const voucherLeftLine1 = document.getElementById("voucher-left-line1");
       const voucherLeftName = document.getElementById("voucher-left-name");
       const voucherLeftSubtitle = document.getElementById("voucher-left-subtitle");
       const voucherMainTitle = document.getElementById("voucher-main-title");
@@ -874,7 +870,7 @@
       const voucherPhone = document.getElementById("voucher-phone");
       const voucherFacebook = document.getElementById("voucher-facebook");
       const voucherImage = document.getElementById("voucher-image");
-      const voucherDateText = document.getElementById("voucher-date-text");
+      const downloadBtn = document.getElementById("download-btn");
 
       // Data atual em PT
       function updateDate() {
@@ -884,7 +880,6 @@
           month: "2-digit",
           year: "numeric"
         });
-        voucherDateText.textContent = formatted;
       }
 
       updateDate();
@@ -896,27 +891,25 @@
 
       // Atualizar textos
       function updateText() {
-        const title = titleInput.value.trim() || "Liliana Guerra";
+        const title = titleInput.value.trim();
         const subtitleValue = subtitleInput.value.trim() || "Osteopatia, Massagens e Tratamentos de Estética";
         const product = productInput.value.trim() || "Sessão de Massagem Relaxante";
         const noteValue = noteInput.value.trim();
 
-        voucherLeftLine1.textContent = title;
         voucherLeftName.textContent = title;
         voucherMainTitle.textContent = "Vale Oferta";
         voucherSubtitle.textContent = subtitleValue.endsWith(".") ? subtitleValue : subtitleValue + ".";
-        voucherLeftSubtitle.textContent = subtitleValue.replace(/, /g, " · ");
         voucherProduct.textContent = product;
 
         if (noteValue) {
           voucherNote.textContent = noteValue;
           voucherNote.style.opacity = "0.85";
         } else {
-          voucherNote.textContent = "Este vale oferta é pessoal e intransmissível. Mediante marcação prévia e sujeito à disponibilidade.";
+          voucherNote.textContent = "";
           voucherNote.style.opacity = "0.7";
         }
 
-        const phone = phoneInput.value.trim() || "+351 912 345 678";
+        const phone = phoneInput.value.trim() || "932 306 630";
         voucherPhone.textContent = phone;
 
         const fb = facebookInput.value.trim() || "facebook.com/lilianaguerra.osteopatia";
@@ -925,7 +918,7 @@
 
       // Presets de imagem
       const IMAGE_PRESETS = {
-        spa: "https://images.pexels.com/photos/3738341/pexels-photo-3738341.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        spa: 'https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=1600',
         stones: "https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=1600",
         face: "https://images.pexels.com/photos/3738349/pexels-photo-3738349.jpeg?auto=compress&cs=tinysrgb&w=1600"
       };
@@ -974,11 +967,11 @@
       });
 
       resetBtn.addEventListener("click", function () {
-        titleInput.value = "Liliana Guerra";
+        titleInput.value = "";
         subtitleInput.value = "Osteopatia, Massagens e Tratamentos de Estética";
         productInput.value = "Sessão de Massagem Relaxante";
         noteInput.value = "Válido por 6 meses após a data de emissão. Mediante marcação prévia.";
-        phoneInput.value = "+351 912 345 678";
+        phoneInput.value = "932 306 630";
         facebookInput.value = "facebook.com/lilianaguerra.osteopatia";
         themeSelect.value = "default";
         document.querySelector("input[name='imagePreset'][value='spa']").checked = true;
@@ -987,6 +980,40 @@
         updateImageFromPreset("spa");
         updateText();
         updateDate();
+      });
+
+      downloadBtn.addEventListener("click", async function () {
+        downloadBtn.disabled = true;
+        downloadBtn.style.opacity = "0.6";
+        downloadBtn.textContent = "⏳ A processar...";
+
+        try {
+          const canvas = await html2canvas(voucher, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: "#ffffff",
+            allowTaint: true
+          });
+
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/jpeg", 0.95);
+          
+          const title = titleInput.value.trim();
+          const dateStr = new Date().toLocaleDateString("pt-PT").replace(/\//g, "-");
+          link.download = `voucher-${title.replace(/\s+/g, "-").toLowerCase()}-${dateStr}.jpg`;
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (error) {
+          console.error("Erro ao fazer download:", error);
+          alert("Erro ao fazer download do voucher. Tente novamente.");
+        } finally {
+          downloadBtn.disabled = false;
+          downloadBtn.style.opacity = "1";
+          downloadBtn.innerHTML = '<span class="icon">⬇</span>\n              Download do Voucher';
+        }
       });
 
       // Inicialização
