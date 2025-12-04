@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-  <meta charset="UTF-8" />
-  <title>Gerador de Vouchers - Liliana Guerra</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gerador de Vouchers - Liliana Guerra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Fontes elegantes -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Fontes elegantes -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Pacifico&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       type="text/css"
@@ -17,33 +20,39 @@
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
     />
-  <style>
-    :root {
-      --primary-default: #d3b37c;
-      --primary-dark: #a58250;
-      --bg-dark: #101216;
-      --bg-light: #f7f4ee;
-      --text-main: #141414;
-      --text-muted: #6c6c6c;
-      --border-radius: 18px;
-    }
+    <style>
+      :root {
+        --primary-default: #d3b37c;
+        --primary-dark: #a58250;
+        --bg-dark: #101216;
+        --bg-light: #f7f4ee;
+        --text-main: #141414;
+        --text-muted: #6c6c6c;
+        --border-radius: 18px;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    body {
-      margin: 0;
-      padding: 24px;
-      background: radial-gradient(circle at top, #1e232b 0, #08090b 45%, #050608 100%);
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f5f5f5;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-    }
+      body {
+        margin: 0;
+        padding: 24px;
+        background: radial-gradient(
+          circle at top,
+          #1e232b 0,
+          #08090b 45%,
+          #050608 100%
+        );
+        font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+      }
 
-    .app-shell {
+      .app-shell {
         width: 100%;
         max-width: 1400px;
         display: flex;
@@ -51,976 +60,1271 @@
         gap: 24px;
         align-items: center;
         flex-direction: column-reverse;
-    }
-
-    @media (max-width: 1100px) {
-      .app-shell {
-        grid-template-columns: 1fr;
       }
-    }
 
-    /* Painel de controlo */
-    .panel {
-      background: rgba(12, 14, 18, 0.92);
-      border-radius: 24px;
-      padding: 22px 22px 16px;
-      border: 1px solid rgba(211, 179, 124, 0.18);
-      box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.65),
-        0 0 0 1px rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(16px);
-    }
+      @media (max-width: 1100px) {
+        .app-shell {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 18px;
-      gap: 12px;
-    }
+      /* Painel de controlo */
+      .panel {
+        background: rgba(12, 14, 18, 0.92);
+        border-radius: 24px;
+        padding: 22px 22px 16px;
+        border: 1px solid rgba(211, 179, 124, 0.18);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(16px);
+      }
 
-    .panel-title {
-      font-family: "Playfair Display", serif;
-      font-size: 22px;
-      letter-spacing: 0.03em;
-    }
+      .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+        gap: 12px;
+      }
 
-    .panel-subtitle {
-      font-size: 12px;
-      color: #999;
-    }
+      .panel-title {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        letter-spacing: 0.03em;
+      }
 
-    .badge {
-      border-radius: 999px;
-      padding: 4px 10px;
-      border: 1px solid rgba(211, 179, 124, 0.45);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--primary-default);
-      display: inline-flex;
-      gap: 5px;
-      align-items: center;
-    }
+      .panel-subtitle {
+        font-size: 12px;
+        color: #999;
+      }
 
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff 0, #ffd77e 35%, #e0962e 100%);
-      box-shadow: 0 0 0 3px rgba(255, 215, 126, 0.3);
-    }
+      .badge {
+        border-radius: 999px;
+        padding: 4px 10px;
+        border: 1px solid rgba(211, 179, 124, 0.45);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--primary-default);
+        display: inline-flex;
+        gap: 5px;
+        align-items: center;
+      }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 14px 16px;
-      margin-bottom: 16px;
-    }
+      .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #fff 0,
+          #ffd77e 35%,
+          #e0962e 100%
+        );
+        box-shadow: 0 0 0 3px rgba(255, 215, 126, 0.3);
+      }
 
-    @media (max-width: 700px) {
       .form-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 14px 16px;
+        margin-bottom: 16px;
       }
-    }
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      font-size: 13px;
-    }
+      @media (max-width: 700px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    .form-group label {
-      color: #f3f3f3;
-      font-weight: 500;
-    }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 13px;
+      }
 
-    .form-group small {
-      color: #8f8f8f;
-      font-size: 11px;
-    }
+      .form-group label {
+        color: #f3f3f3;
+        font-weight: 500;
+      }
 
-    .input,
-    .select {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(211, 179, 124, 0.25);
-      border-radius: 999px;
-      padding: 9px 13px;
-      color: #f5f5f5;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
+      .form-group small {
+        color: #8f8f8f;
+        font-size: 11px;
+      }
 
-    .input:focus,
-    .select:focus {
-      border-color: rgba(243, 209, 160, 0.9);
-      box-shadow: 0 0 0 1px rgba(243, 209, 160, 0.3);
-      background: rgba(255, 255, 255, 0.05);
-    }
+      .input,
+      .select {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(211, 179, 124, 0.25);
+        border-radius: 999px;
+        padding: 9px 13px;
+        color: #f5f5f5;
+        font-size: 13px;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
 
-    .input::placeholder {
-      color: #707070;
-    }
+      .select option {
+        background: #1a1c20;
+        color: #f5f5f5;
+        padding: 8px;
+      }
 
-    .inline {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
+      .input:focus,
+      .select:focus {
+        border-color: rgba(243, 209, 160, 0.9);
+        box-shadow: 0 0 0 1px rgba(243, 209, 160, 0.3);
+        background: rgba(255, 255, 255, 0.05);
+      }
 
-    .radio-chip {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: #d7d7d7;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.0));
-      transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
-    }
+      .input::placeholder {
+        color: #707070;
+      }
 
-    .radio-chip input {
-      display: none;
-    }
+      .inline {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+      }
 
-    .radio-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
+      .radio-chip {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: #d7d7d7;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0)
+        );
+        transition: border-color 0.18s ease, background 0.18s ease,
+          color 0.18s ease;
+      }
 
-    .radio-chip input:checked + .radio-indicator {
-      border-color: #000;
-      background: radial-gradient(circle at 30% 30%, #fff 0, #ffd77e 35%, #e0962e 100%);
-      box-shadow: 0 0 0 2px rgba(233, 191, 126, 0.6);
-    }
+      .radio-chip input {
+        display: none;
+      }
 
-    .radio-chip:has(input:checked) {
-      border-color: rgba(243, 209, 160, 0.9);
-      background: linear-gradient(120deg, rgba(243, 209, 160, 0.15), rgba(243, 209, 160, 0.02));
-      color: #fff3da;
-    }
+      .radio-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
 
-    .divider {
-      height: 1px;
-      border-radius: 999px;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0.02), rgba(211, 179, 124, 0.7), rgba(255, 255, 255, 0.02));
-      margin: 10px 0 12px;
-    }
+      .radio-chip input:checked + .radio-indicator {
+        border-color: #000;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #fff 0,
+          #ffd77e 35%,
+          #e0962e 100%
+        );
+        box-shadow: 0 0 0 2px rgba(233, 191, 126, 0.6);
+      }
 
-    .panel-footer {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 6px;
-      font-size: 11px;
-      color: #a4a4a4;
-    }
+      .radio-chip:has(input:checked) {
+        border-color: rgba(243, 209, 160, 0.9);
+        background: linear-gradient(
+          120deg,
+          rgba(243, 209, 160, 0.15),
+          rgba(243, 209, 160, 0.02)
+        );
+        color: #fff3da;
+      }
 
-    .btn {
-      border-radius: 999px;
-      padding: 8px 16px;
-      border: 1px solid rgba(243, 209, 160, 0.4);
-      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.08), rgba(18, 18, 18, 0.95));
-      color: #f6f0e6;
-      font-size: 12px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    }
+      .divider {
+        height: 1px;
+        border-radius: 999px;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.02),
+          rgba(211, 179, 124, 0.7),
+          rgba(255, 255, 255, 0.02)
+        );
+        margin: 10px 0 12px;
+      }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.6);
-      border-color: rgba(243, 209, 160, 0.9);
-      background: radial-gradient(circle at 10% 0, rgba(255, 242, 214, 0.18), rgba(18, 18, 18, 0.98));
-    }
+      .panel-footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 6px;
+        font-size: 11px;
+        color: #a4a4a4;
+      }
 
-    .btn span.icon {
-      font-size: 16px;
-      line-height: 0;
-    }
+      .btn {
+        border-radius: 999px;
+        padding: 8px 16px;
+        border: 1px solid rgba(243, 209, 160, 0.4);
+        background: radial-gradient(
+          circle at 0 0,
+          rgba(255, 255, 255, 0.08),
+          rgba(18, 18, 18, 0.95)
+        );
+        color: #f6f0e6;
+        font-size: 12px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease,
+          border-color 0.15s ease, background 0.15s ease;
+      }
 
-    /* Área do voucher */
-    .voucher-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px;
-    }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.6);
+        border-color: rgba(243, 209, 160, 0.9);
+        background: radial-gradient(
+          circle at 10% 0,
+          rgba(255, 242, 214, 0.18),
+          rgba(18, 18, 18, 0.98)
+        );
+      }
 
-    .scale-helper {
-      transform-origin: top left;
-    }
+      .btn span.icon {
+        font-size: 16px;
+        line-height: 0;
+      }
 
-    @media (max-width: 1350px) {
+      /* Área do voucher */
+      .voucher-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+      }
+
       .scale-helper {
-        transform: scale(0.9);
+        transform-origin: top left;
       }
-    }
 
-    @media (max-width: 1200px) {
-      .scale-helper {
-        transform: scale(0.8);
+      @media (max-width: 1350px) {
+        .scale-helper {
+          transform: scale(0.9);
+        }
       }
-    }
 
-    @media (max-width: 1000px) {
-      .scale-helper {
-        transform: scale(0.7);
+      @media (max-width: 1200px) {
+        .scale-helper {
+          transform: scale(0.8);
+        }
       }
-    }
 
-    @media (max-width: 800px) {
-      .scale-helper {
-        transform: scale(0.6);
+      @media (max-width: 1000px) {
+        .scale-helper {
+          transform: scale(0.7);
+        }
       }
-    }
 
-    @media (max-width: 650px) {
-      .scale-helper {
-        transform: scale(0.5);
+      @media (max-width: 800px) {
+        .scale-helper {
+          transform: scale(0.6);
+        }
       }
-    }
 
-    /* VOUCHER base */
-    .voucher {
-      width: 1280px;
-      height: 427px;
-      background: radial-gradient(circle at top left, #2b2721 0, #171614 35%, #131212 100%);
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      overflow: hidden;
-      position: relative;
-      color: #121212;
-      border: 1px solid rgba(239, 213, 169, 0.7);
-      box-shadow:
-        0 26px 70px rgba(0, 0, 0, 0.9),
-        0 0 0 1px rgba(255, 255, 255, 0.08);
-      isolation: isolate;
-    }
+      @media (max-width: 650px) {
+        .scale-helper {
+          transform: scale(0.5);
+        }
+      }
 
-    .voucher::before {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border-radius: calc(var(--border-radius) - 1px);
-      border: 1px solid rgba(0, 0, 0, 0.9);
-      pointer-events: none;
-    }
+      /* VOUCHER base */
+      .voucher {
+        width: 1280px;
+        height: 427px;
+        background: radial-gradient(
+          circle at top left,
+          #2b2721 0,
+          #171614 35%,
+          #131212 100%
+        );
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        overflow: hidden;
+        position: relative;
+        color: #121212;
+        border: 1px solid rgba(239, 213, 169, 0.7);
+        box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9),
+          0 0 0 1px rgba(255, 255, 255, 0.08);
+        isolation: isolate;
+      }
 
-    /* Temas */
-    .voucher.theme-default {
-      --accent: #d3b37c;
-      --accent-soft: rgba(211, 179, 124, 0.35);
-      --accent-strong: #f3d1a0;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 237, 205, 0.15) 0, rgba(0, 0, 0, 0) 42%),
-        radial-gradient(circle at 100% 100%, rgba(255, 216, 162, 0.2) 0, rgba(0, 0, 0, 0.2) 48%),
-        linear-gradient(135deg, #171719, #09090b);
-    }
+      .voucher::before {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: calc(var(--border-radius) - 1px);
+        border: 1px solid rgba(0, 0, 0, 0.9);
+        pointer-events: none;
+      }
 
-    .voucher.theme-natal {
-      --accent: #e84848;
-      --accent-soft: rgba(232, 72, 72, 0.35);
-      --accent-strong: #ffd7a2;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.3) 0, rgba(0, 0, 0, 0) 40%),
-        radial-gradient(circle at 100% 100%, rgba(34, 139, 34, 0.9) 0, rgba(0, 0, 0, 0.3) 55%),
-        linear-gradient(135deg, #14181a, #050607);
-    }
+      /* Temas */
+      .voucher.theme-default {
+        --accent: #d3b37c;
+        --accent-soft: rgba(211, 179, 124, 0.35);
+        --accent-strong: #f3d1a0;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 237, 205, 0.15) 0,
+            rgba(0, 0, 0, 0) 42%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(255, 216, 162, 0.2) 0,
+            rgba(0, 0, 0, 0.2) 48%
+          ),
+          linear-gradient(135deg, #171719, #09090b);
+      }
 
-    .voucher.theme-pascoa {
-      --accent: #f2a9ff;
-      --accent-soft: rgba(242, 169, 255, 0.45);
-      --accent-strong: #ffe8ff;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.5) 0, rgba(0, 0, 0, 0) 38%),
-        radial-gradient(circle at 100% 100%, rgba(255, 209, 164, 0.8) 0, rgba(0, 0, 0, 0.2) 52%),
-        linear-gradient(135deg, #1e1925, #0a0c10);
-    }
+      .voucher.theme-natal {
+        --accent: #e84848;
+        --accent-soft: rgba(232, 72, 72, 0.35);
+        --accent-strong: #ffd7a2;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 255, 255, 0.3) 0,
+            rgba(0, 0, 0, 0) 40%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(34, 139, 34, 0.9) 0,
+            rgba(0, 0, 0, 0.3) 55%
+          ),
+          linear-gradient(135deg, #14181a, #050607);
+      }
 
-    .voucher.theme-dia-mulher {
-      --accent: #ff6fae;
-      --accent-soft: rgba(255, 111, 174, 0.4);
-      --accent-strong: #ffd6ec;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.4) 0, rgba(0, 0, 0, 0) 36%),
-        radial-gradient(circle at 100% 100%, rgba(255, 134, 176, 0.55) 0, rgba(0, 0, 0, 0.3) 52%),
-        linear-gradient(135deg, #231625, #09070c);
-    }
+      .voucher.theme-pascoa {
+        --accent: #f2a9ff;
+        --accent-soft: rgba(242, 169, 255, 0.45);
+        --accent-strong: #ffe8ff;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 255, 255, 0.5) 0,
+            rgba(0, 0, 0, 0) 38%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(255, 209, 164, 0.8) 0,
+            rgba(0, 0, 0, 0.2) 52%
+          ),
+          linear-gradient(135deg, #1e1925, #0a0c10);
+      }
 
-    .voucher.theme-dia-pai {
-      --accent: #7bb0ff;
-      --accent-soft: rgba(123, 176, 255, 0.45);
-      --accent-strong: #d9e7ff;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.35) 0, rgba(0, 0, 0, 0) 40%),
-        radial-gradient(circle at 100% 100%, rgba(23, 71, 132, 0.9) 0, rgba(0, 0, 0, 0.3) 50%),
-        linear-gradient(135deg, #131821, #05070a);
-    }
+      .voucher.theme-dia-mulher {
+        --accent: #ff6fae;
+        --accent-soft: rgba(255, 111, 174, 0.4);
+        --accent-strong: #ffd6ec;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 255, 255, 0.4) 0,
+            rgba(0, 0, 0, 0) 36%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(255, 134, 176, 0.55) 0,
+            rgba(0, 0, 0, 0.3) 52%
+          ),
+          linear-gradient(135deg, #231625, #09070c);
+      }
 
-    .voucher.theme-dia-mae {
-      --accent: #ffb87c;
-      --accent-soft: rgba(255, 184, 124, 0.4);
-      --accent-strong: #ffeada;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.5) 0, rgba(0, 0, 0, 0) 36%),
-        radial-gradient(circle at 100% 100%, rgba(255, 175, 204, 0.7) 0, rgba(0, 0, 0, 0.2) 50%),
-        linear-gradient(135deg, #24141b, #090709);
-    }
+      .voucher.theme-dia-pai {
+        --accent: #7bb0ff;
+        --accent-soft: rgba(123, 176, 255, 0.45);
+        --accent-strong: #d9e7ff;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 255, 255, 0.35) 0,
+            rgba(0, 0, 0, 0) 40%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(23, 71, 132, 0.9) 0,
+            rgba(0, 0, 0, 0.3) 50%
+          ),
+          linear-gradient(135deg, #131821, #05070a);
+      }
 
-    /* Coluna esquerda - Imagem */
-    .voucher-left {
-      position: relative;
-      overflow: hidden;
-      border-right: 1px solid rgba(0, 0, 0, 0.7);
-    }
+      .voucher.theme-dia-mae {
+        --accent: #ffb87c;
+        --accent-soft: rgba(255, 184, 124, 0.4);
+        --accent-strong: #ffeada;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 255, 255, 0.5) 0,
+            rgba(0, 0, 0, 0) 36%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(255, 175, 204, 0.7) 0,
+            rgba(0, 0, 0, 0.2) 50%
+          ),
+          linear-gradient(135deg, #24141b, #090709);
+      }
 
-    .voucher-image-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.3) 0, rgba(0, 0, 0, 0) 40%),
-        url("https://images.pexels.com/photos/3738341/pexels-photo-3738341.jpeg?auto=compress&cs=tinysrgb&w=1600") center/cover no-repeat;
-      filter: saturate(1.1) contrast(1.08);
-      transform: scale(1.02);
-      transform-origin: center;
-    }
+      /* Coluna esquerda - Imagem */
+      .voucher-left {
+        position: relative;
+        overflow: visible;
+        border-right: none;
+        clip-path: polygon(
+          0 0,
+          95% 0,
+          98% 3%,
+          96% 8%,
+          98% 12%,
+          95% 18%,
+          97% 25%,
+          96% 32%,
+          98% 38%,
+          96% 45%,
+          98% 52%,
+          95% 58%,
+          97% 65%,
+          96% 72%,
+          98% 78%,
+          96% 85%,
+          98% 90%,
+          95% 95%,
+          98% 100%,
+          0 100%
+        );
+      }
 
-    .voucher-left-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(120deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.12), transparent 55%);
-      mix-blend-mode: multiply;
-    }
+      .voucher-image-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 0 0,
+            rgba(255, 255, 255, 0.3) 0,
+            rgba(0, 0, 0, 0) 40%
+          ),
+          url("https://images.pexels.com/photos/3738341/pexels-photo-3738341.jpeg?auto=compress&cs=tinysrgb&w=1600")
+            center/cover no-repeat;
+        filter: saturate(1.1) contrast(1.08);
+        transform: scale(1.02);
+        transform-origin: center;
+      }
 
-    .voucher-left-inner {
-      position: relative;
-      inset: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: #f7f5f3;
-      z-index: 1;
-    }
+      .voucher-left-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            120deg,
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.1)
+          ),
+          radial-gradient(
+            circle at 0 0,
+            rgba(255, 255, 255, 0.12),
+            transparent 55%
+          );
+        mix-blend-mode: multiply;
+      }
 
-    .voucher-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.55);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(8px);
-    }
+      .voucher-left-inner {
+        position: relative;
+        inset: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #f7f5f3;
+        z-index: 1;
+      }
 
-    .voucher-tag-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff 0, var(--accent) 40%, #a55e1f 100%);
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.8);
-    }
+      .voucher-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.55);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(8px);
+      }
 
-    .voucher-left-title {
-      font-family: "Playfair Display", serif;
-      font-size: 26px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-shadow: 0 10px 28px rgba(0, 0, 0, 0.75);
-    }
+      .voucher-tag-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #fff 0,
+          var(--accent) 40%,
+          #a55e1f 100%
+        );
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.8);
+      }
 
-    .voucher-left-sub {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      opacity: 0.8;
-    }
+      .voucher-left-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-shadow: 0 10px 28px rgba(0, 0, 0, 0.75);
+      }
 
-    .voucher-left-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      font-size: 11px;
-      opacity: 0.9;
-    }
+      /* OPÇÕES DE FONTES MODERNAS - Para trocar a fonte, substitua "Poppins" acima por uma destas:
+         - "Raleway" (elegante e minimalista)
+         - "Inter" (ultra-moderna e clean)
+         - "Montserrat" (profissional e versátil)
+         - "Playfair Display" (clássica serif - original)
+      */
 
-    .voucher-left-label {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding-bottom: 3px;
-      display: inline-block;
-    }
+      .voucher-left-sub {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        opacity: 0.8;
+      }
 
-    .voucher-left-date {
-      font-size: 10px;
-      opacity: 0.78;
-      text-align: right;
-    }
+      .voucher-left-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-size: 11px;
+        opacity: 0.9;
+      }
 
-    /* Coluna direita - Conteúdo */
-    .voucher-right {
-      position: relative;
-      padding: 26px 34px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.3) 0, rgba(0, 0, 0, 0) 48%),
-        radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0.1) 55%),
-        linear-gradient(125deg, rgba(15, 15, 17, 0.98), rgba(11, 11, 13, 0.98));
-    }
+      .voucher-left-label {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        padding-bottom: 3px;
+        display: inline-block;
+      }
 
-    .voucher-right-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      color: #f5f5f5;
-    }
+      .voucher-left-date {
+        font-size: 10px;
+        opacity: 0.78;
+        text-align: right;
+      }
 
-    .voucher-pill {
-      align-self: flex-start;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(12px);
-    }
+      /* Coluna direita - Conteúdo */
+      .voucher-right {
+        position: relative;
+        padding: 26px 34px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: radial-gradient(
+            circle at 0 0,
+            rgba(255, 255, 255, 0.3) 0,
+            rgba(0, 0, 0, 0) 48%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(0, 0, 0, 0.8) 0,
+            rgba(0, 0, 0, 0.1) 55%
+          ),
+          linear-gradient(
+            125deg,
+            rgba(15, 15, 17, 0.98),
+            rgba(11, 11, 13, 0.98)
+          );
+      }
 
-    .voucher-pill-accent {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff 0, var(--accent-strong) 35%, var(--accent) 100%);
-      box-shadow:
-        0 0 12px rgba(255, 255, 255, 0.5),
-        0 0 28px rgba(0, 0, 0, 0.9);
-    }
+      /* Fita decorativa no canto superior direito */
+      /* Fita ondulada elegante */
+      .gift-ribbon {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 180px;
+        height: 180px;
+        pointer-events: none;
+        z-index: 10;
+        overflow: hidden;
+      }
 
-    .voucher-main-title {
-      font-family: "Playfair Display", serif;
-      font-size: 34px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent-strong);
-      text-shadow:
-        0 12px 30px rgba(0, 0, 0, 1),
-        0 0 28px rgba(255, 255, 255, 0.35);
-    }
+      /* Fita principal com movimento */
+      .gift-ribbon::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        right: -20px;
+        width: 200px;
+        height: 45px;
+        background: linear-gradient(
+          180deg,
+          var(--accent-strong) 0%,
+          var(--accent) 50%,
+          var(--accent-strong) 100%
+        );
+        transform: rotate(45deg);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5),
+          inset 0 2px 4px rgba(255, 255, 255, 0.4),
+          inset 0 -2px 6px rgba(0, 0, 0, 0.35);
+      }
 
-    .voucher-subtitle {
-      font-size: 13px;
-      color: rgba(245, 245, 245, 0.82);
-      max-width: 90%;
-    }
+      /* Efeito de ondulação e brilho */
+      .gift-ribbon::after {
+        content: "";
+        position: absolute;
+        top: 30px;
+        right: -20px;
+        width: 200px;
+        height: 45px;
+        background: repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 8px,
+          rgba(255, 255, 255, 0.15) 8px,
+          rgba(255, 255, 255, 0.15) 16px
+        );
+        transform: rotate(45deg);
+        animation: ribbonShine 3s ease-in-out infinite;
+      }
 
-    .voucher-product-block {
-      margin-top: 6px;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+      /* Pontas da fita com corte em V */
+      .ribbon-center {
+        display: none;
+      }
 
-    .voucher-product-label {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(238, 238, 238, 0.72);
-    }
+      @keyframes ribbonShine {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
 
-    .voucher-product-name {
-      font-size: 18px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: #ffffff;
-    }
+      .voucher-right-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        color: #f5f5f5;
+        text-align: center;
+        justify-content: center;
+      }
 
-    .voucher-note {
-      margin-top: 6px;
-      font-size: 11px;
-      color: rgba(230, 230, 230, 0.75);
-    }
+      .voucher-pill {
+        align-self: flex-start;
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.7),
+          rgba(0, 0, 0, 0.2)
+        );
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(12px);
+      }
 
-    /* Footer */
-    .voucher-footer {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: rgba(242, 242, 242, 0.82);
-      padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      margin-top: 10px;
-    }
+      .voucher-pill-accent {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #fff 0,
+          var(--accent-strong) 35%,
+          var(--accent) 100%
+        );
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.5),
+          0 0 28px rgba(0, 0, 0, 0.9);
+      }
 
-    .voucher-footer-left {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+      .voucher-main-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 25px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+        text-shadow: 0 12px 30px rgba(0, 0, 0, 1),
+          0 0 28px rgba(255, 255, 255, 0.35);
+      }
 
-    .voucher-footer-label {
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 10px;
-      color: rgba(220, 220, 220, 0.7);
-    }
+      .voucher-subtitle {
+        font-family: "Montserrat", sans-serif; /* Troque por "Poppins", "Raleway" ou "Inter" se preferir */
+        font-size: 20px;
+        color: rgba(245, 245, 245, 0.82);
+        max-width: 90%;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
 
-    .voucher-footer-values {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+      .voucher-product-block {
+        margin-top: 16px;
+        padding: 16px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-    .voucher-footer-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 9px;
-    }
+      .voucher-customer-label {
+        font-family: "Dancing Script", cursive;
+        font-size: 52px;
+        font-weight: 600;
+        margin-top: 20px;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        color: var(--accent-strong);
+        font-style: italic;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
 
-    .voucher-footer-pill span.symbol {
-      font-size: 13px;
-      opacity: 0.9;
-    }
+      /* OUTRAS OPÇÕES DE FONTES MANUSCRITAS - Para trocar, altere "Dancing Script" acima:
+         - "Pacifico" (manuscrita suave e amigável)
+         - "Great Vibes" (script elegante e sofisticado)
+         - "Allura" (caligrafia formal)
+         - "Sacramento" (assinatura clássica)
+      */
 
-    .voucher-footer-pill .ph {
-        font-size: 15px;
-    }
+      .voucher-product-name {
+        font-size: 35px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #ffffff;
+        line-height: 1.4;
+      }
 
-    .voucher-footer-right {
-      text-align: right;
-      font-size: 10px;
-      color: rgba(230, 230, 230, 0.72);
-    }
+      .voucher-note {
+        margin-top: 6px;
+        font-size: 11px;
+        color: rgba(230, 230, 230, 0.75);
+      }
 
-    .voucher-footer-right strong {
-      display: block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 3px;
-    }
+      /* Footer */
+      .voucher-footer {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: rgba(242, 242, 242, 0.82);
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin-top: 10px;
+      }
 
-    /* Botão "copiar para impressão" (apenas visual) */
-    .print-hint {
-      font-size: 10px;
-      color: #8c8c8c;
-    }
-  </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-</head>
-<body>
+      .voucher-footer-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
 
-  <div class="app-shell">
-    <!-- PREVIEW VOUCHER -->
-    <div class="panel">
-      <div class="panel-header">
-        <div>
-          <div class="panel-title">Pré-visualização do Voucher</div>
-          <div class="panel-subtitle">Tamanho real: 1280 × 427 px (lado esquerdo imagem, lado direito oferta)</div>
+      .voucher-footer-label {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 10px;
+        color: rgba(220, 220, 220, 0.7);
+      }
+
+      .voucher-footer-values {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .voucher-footer-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 9px;
+      }
+
+      .voucher-footer-pill span.symbol {
+        font-size: 13px;
+        opacity: 0.9;
+      }
+
+      .voucher-footer-pill .ph {
+        font-size: 17px;
+      }
+
+      .voucher-footer-right {
+        text-align: right;
+        font-size: 12px; /* Tamanho do texto "Osteopatia · Massagem · Estética" */
+        color: rgba(230, 230, 230, 0.72);
+      }
+
+      .voucher-footer-right strong {
+        display: block;
+        font-size: 13px; /* Tamanho do nome "Liliana Guerra" */
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        margin-bottom: 3px;
+      }
+
+      /* Botão "copiar para impressão" (apenas visual) */
+      .print-hint {
+        font-size: 10px;
+        color: #8c8c8c;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- PREVIEW VOUCHER -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Pré-visualização do Voucher</div>
+            <div class="panel-subtitle">
+              Tamanho real: 1280 × 427 px (lado esquerdo imagem, lado direito
+              oferta)
+            </div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            VOUCHER AO VIVO
+          </div>
         </div>
-        <div class="badge">
-          <span class="badge-dot"></span>
-          VOUCHER AO VIVO
+
+        <div class="voucher-wrapper">
+          <div class="scale-helper">
+            <div class="voucher theme-default" id="voucher">
+              <!-- Esquerda -->
+              <div class="voucher-left">
+                <div class="voucher-image-bg" id="voucher-image"></div>
+                <div class="voucher-left-overlay"></div>
+
+                <div class="voucher-left-inner">
+                  <div>
+                    <div style="margin-top: 10px">
+                      <div class="voucher-left-title" id="voucher-left-name">
+                        Liliana&nbsp;Guerra
+                      </div>
+                      <div class="voucher-left-sub" id="voucher-left-subtitle">
+                        <!-- Osteopatia · Massagens · Estética -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="voucher-left-bottom">
+                    <div class="voucher-left-label">
+                      <!-- Saúde &amp; bem-estar -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Direita -->
+              <div class="voucher-right">
+                <div class="gift-ribbon"></div>
+                <div class="voucher-right-inner">
+                  <div>
+                    <div class="voucher-main-title" id="voucher-main-title">
+                      Vale Oferta
+                    </div>
+                    <div class="voucher-subtitle" id="voucher-subtitle"></div>
+
+                    <div class="voucher-product-block">
+                      <div
+                        class="voucher-customer-label"
+                        id="voucher-recipient"
+                      >
+                        Nome do Cliente
+                      </div>
+                      <div class="voucher-product-name" id="voucher-product">
+                        Sessão de Massagem Relaxante
+                      </div>
+                    </div>
+
+                    <div class="voucher-note" id="voucher-note"></div>
+                  </div>
+                </div>
+
+                <div class="voucher-footer">
+                  <div class="voucher-footer-left">
+                    <div class="voucher-footer-label">Contato</div>
+                    <div class="voucher-footer-values">
+                      <div class="voucher-footer-pill">
+                        <i class="ph ph-whatsapp-logo"></i>
+                        <span id="voucher-phone">932 306 630</span>
+                      </div>
+                      <div class="voucher-footer-pill">
+                        <i class="ph ph-facebook-logo"></i>
+                        <span id="voucher-facebook"
+                          >facebook.com/lilianaguerra.osteopatia</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="voucher-footer-right">
+                    <strong>Liliana&nbsp;Guerra</strong>
+                    <span>Osteopatia · Massagem · Estética</span><br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /voucher -->
+          </div>
         </div>
       </div>
 
-      <div class="voucher-wrapper">
-        <div class="scale-helper">
-          <div class="voucher theme-default" id="voucher">
-            <!-- Esquerda -->
-            <div class="voucher-left">
-              <div class="voucher-image-bg" id="voucher-image"></div>
-              <div class="voucher-left-overlay"></div>
-
-              <div class="voucher-left-inner">
-                <div>
-                  <div style="margin-top: 10px;">
-                    <div class="voucher-left-title" id="voucher-left-name">
-                      Liliana&nbsp;Guerra
-                    </div>
-                    <div class="voucher-left-sub" id="voucher-left-subtitle">
-                      <!-- Osteopatia · Massagens · Estética -->
-                    </div>
-                  </div>
-                </div>
-
-                <div class="voucher-left-bottom">
-                  <div class="voucher-left-label">
-                    <!-- Saúde &amp; bem-estar -->
-                  </div>
-                </div>
-              </div>
+      <!-- CONTROLOS -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Gerador de Vouchers</div>
+            <div class="panel-subtitle">
+              Personalize o conteúdo e o tema – tudo corre no browser, sem
+              servidor.
             </div>
-
-            <!-- Direita -->
-            <div class="voucher-right">
-              <div class="voucher-right-inner">
-                <div>
-                  <div class="voucher-main-title" id="voucher-main-title">
-                    Vale Oferta
-                  </div>
-                  <div class="voucher-subtitle" id="voucher-subtitle">
-                    
-                  </div>
-
-                  <div class="voucher-product-block">
-                    <div class="voucher-product-label">
-                      Oferta
-                    </div>
-                    <div class="voucher-product-name" id="voucher-product">
-                      Sessão de Massagem Relaxante
-                    </div>
-                  </div>
-
-                  <div class="voucher-note" id="voucher-note">
-                    
-                  </div>
-                </div>
-              </div>
-
-              <div class="voucher-footer">
-                <div class="voucher-footer-left">
-                  <div class="voucher-footer-label">Contactos</div>
-                  <div class="voucher-footer-values">
-                    <div class="voucher-footer-pill">
-                      <i class="ph ph-whatsapp-logo"></i>
-                      <span id="voucher-phone">932 306 630</span>
-                    </div>
-                    <div class="voucher-footer-pill">
-                      <i class="ph ph-facebook-logo"></i>
-                      <span id="voucher-facebook">facebook.com/lilianaguerra.osteopatia</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="voucher-footer-right">
-                  <strong>Liliana&nbsp;Guerra</strong>
-                  <span>Osteopatia · Massagens · Estética</span><br />
-                </div>
-              </div>
-            </div>
-          </div> <!-- /voucher -->
+          </div>
         </div>
+
+        <form id="voucher-form" onsubmit="return false;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="title">Título (nome da profissional)</label>
+              <input
+                class="input"
+                id="title"
+                type="text"
+                value="Liliana Guerra"
+              />
+              <small>Aparece no topo e no rodapé do voucher.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="subtitle">Subtítulo</label>
+              <input
+                class="input"
+                id="subtitle"
+                type="text"
+                value="Osteopatia · Massagem · Estética"
+              />
+              <small>Descrição principal dos serviços.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="product">Nome do produto/serviço a ofertar</label>
+              <input
+                class="input"
+                id="product"
+                type="text"
+                value="Sessão de Massagem Relaxante"
+              />
+              <small
+                >Ex.: Sessão de Osteopatia, Limpeza de Pele, Massagem a
+                Dois…</small
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="recipient">Destinatário</label>
+              <input
+                class="input"
+                id="recipient"
+                type="text"
+                value="Nome do Cliente"
+              />
+              <small>Condições, validade, etc. Pode deixar em branco.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Telemóvel</label>
+              <input class="input" id="phone" type="text" value="932 306 630" />
+              <small>Será mostrado no rodapé.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="facebook">URL do Facebook</label>
+              <input
+                class="input"
+                id="facebook"
+                type="text"
+                value="/TerapeutaLilianaGuerra"
+              />
+              <small>Ex.: facebook.com/…</small>
+            </div>
+
+            <div class="form-group">
+              <label for="theme">Tema do Voucher</label>
+              <select class="select" id="theme">
+                <option value="default">Clássico / Neutro</option>
+                <option value="natal">Natal</option>
+                <option value="pascoa">Páscoa</option>
+                <option value="dia-mulher">Dia da Mulher</option>
+                <option value="dia-pai">Dia do Pai</option>
+                <option value="dia-mae">Dia da Mãe</option>
+              </select>
+              <small>Muda as cores e a “atmosfera” do voucher.</small>
+            </div>
+
+            <div class="form-group">
+              <label>Imagem lateral do voucher</label>
+              <div class="inline">
+                <label class="radio-chip">
+                  <input type="radio" name="imagePreset" value="spa" checked />
+                  <span class="radio-indicator"></span>
+                  SPA / Relax
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="imagePreset" value="stones" />
+                  <span class="radio-indicator"></span>
+                  Pedras quentes
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="imagePreset" value="face" />
+                  <span class="radio-indicator"></span>
+                  Rosto / estética
+                </label>
+              </div>
+              <input
+                class="input"
+                id="image-url"
+                type="text"
+                placeholder="Ou cole aqui um URL de imagem (opcional)"
+              />
+              <small
+                >Pode usar um dos presets acima ou indicar um URL de imagem
+                próprio.</small
+              >
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="panel-footer">
+            <div>
+              <button class="btn" id="reset-btn" type="button">
+                <span class="icon">↺</span>
+                Repor valores de exemplo
+              </button>
+              <button
+                class="btn"
+                id="download-btn"
+                type="button"
+                style="margin-left: 8px"
+              >
+                <span class="icon">⬇</span>
+                Download do Voucher
+              </button>
+            </div>
+            <div>
+              <span class="print-hint"
+                >Dica: depois de preencher, use o Ctrl+P (ou Imprimir) para
+                guardar como PDF ou enviar para a gráfica.</span
+              >
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 
-    <!-- CONTROLOS -->
-    <div class="panel">
-      <div class="panel-header">
-        <div>
-          <div class="panel-title">Gerador de Vouchers</div>
-          <div class="panel-subtitle">Personalize o conteúdo e o tema – tudo corre no browser, sem servidor.</div>
-        </div>
-      </div>
+    <script>
+      (function () {
+        const voucher = document.getElementById("voucher");
 
-      <form id="voucher-form" onsubmit="return false;">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="title">Título (nome da profissional)</label>
-            <input class="input" id="title" type="text" value="Liliana Guerra" />
-            <small>Aparece no topo e no rodapé do voucher.</small>
-          </div>
+        const titleInput = document.getElementById("title");
+        const subtitleInput = document.getElementById("subtitle");
+        const productInput = document.getElementById("product");
+        const recipientInput = document.getElementById("recipient");
+        const phoneInput = document.getElementById("phone");
+        const facebookInput = document.getElementById("facebook");
+        const themeSelect = document.getElementById("theme");
+        const imageUrlInput = document.getElementById("image-url");
+        const resetBtn = document.getElementById("reset-btn");
 
-          <div class="form-group">
-            <label for="subtitle">Subtítulo</label>
-            <input class="input" id="subtitle" type="text" value="" />
-            <small>Descrição principal dos serviços.</small>
-          </div>
+        const voucherLeftName = document.getElementById("voucher-left-name");
+        const voucherLeftSubtitle = document.getElementById(
+          "voucher-left-subtitle"
+        );
+        const voucherMainTitle = document.getElementById("voucher-main-title");
+        const voucherSubtitle = document.getElementById("voucher-subtitle");
+        const voucherProduct = document.getElementById("voucher-product");
+        const voucherRecipient = document.getElementById("voucher-recipient");
+        const voucherPhone = document.getElementById("voucher-phone");
+        const voucherFacebook = document.getElementById("voucher-facebook");
+        const voucherImage = document.getElementById("voucher-image");
+        const downloadBtn = document.getElementById("download-btn");
 
-          <div class="form-group">
-            <label for="product">Nome do produto/serviço a ofertar</label>
-            <input class="input" id="product" type="text" value="Sessão de Massagem Relaxante" />
-            <small>Ex.: Sessão de Osteopatia, Limpeza de Pele, Massagem a Dois…</small>
-          </div>
-
-          <div class="form-group">
-            <label for="note">Nota adicional (opcional)</label>
-            <input class="input" id="note" type="text"
-              value="" />
-            <small>Condições, validade, etc. Pode deixar em branco.</small>
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Telemóvel</label>
-            <input class="input" id="phone" type="text" value="932 306 630" />
-            <small>Será mostrado no rodapé.</small>
-          </div>
-
-          <div class="form-group">
-            <label for="facebook">URL do Facebook</label>
-            <input class="input" id="facebook" type="text" value="facebook.com/lilianaguerra.osteopatia" />
-            <small>Ex.: facebook.com/…</small>
-          </div>
-
-          <div class="form-group">
-            <label for="theme">Tema do Voucher</label>
-            <select class="select" id="theme">
-              <option value="default">Clássico / Neutro</option>
-              <option value="natal">Natal</option>
-              <option value="pascoa">Páscoa</option>
-              <option value="dia-mulher">Dia da Mulher</option>
-              <option value="dia-pai">Dia do Pai</option>
-              <option value="dia-mae">Dia da Mãe</option>
-            </select>
-            <small>Muda as cores e a “atmosfera” do voucher.</small>
-          </div>
-
-          <div class="form-group">
-            <label>Imagem lateral do voucher</label>
-            <div class="inline">
-              <label class="radio-chip">
-                <input type="radio" name="imagePreset" value="spa" checked />
-                <span class="radio-indicator"></span>
-                SPA / Relax
-              </label>
-              <label class="radio-chip">
-                <input type="radio" name="imagePreset" value="stones" />
-                <span class="radio-indicator"></span>
-                Pedras quentes
-              </label>
-              <label class="radio-chip">
-                <input type="radio" name="imagePreset" value="face" />
-                <span class="radio-indicator"></span>
-                Rosto / estética
-              </label>
-            </div>
-            <input class="input" id="image-url" type="text"
-              placeholder="Ou cole aqui um URL de imagem (opcional)" />
-            <small>Pode usar um dos presets acima ou indicar um URL de imagem próprio.</small>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="panel-footer">
-          <div>
-            <button class="btn" id="reset-btn" type="button">
-              <span class="icon">↺</span>
-              Repor valores de exemplo
-            </button>
-            <button class="btn" id="download-btn" type="button" style="margin-left: 8px;">
-              <span class="icon">⬇</span>
-              Download do Voucher
-            </button>
-          </div>
-          <div>
-            <span class="print-hint">Dica: depois de preencher, use o Ctrl+P (ou Imprimir) para guardar como PDF ou
-              enviar para a gráfica.</span>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    (function () {
-      const voucher = document.getElementById("voucher");
-
-      const titleInput = document.getElementById("title");
-      const subtitleInput = document.getElementById("subtitle");
-      const productInput = document.getElementById("product");
-      const noteInput = document.getElementById("note");
-      const phoneInput = document.getElementById("phone");
-      const facebookInput = document.getElementById("facebook");
-      const themeSelect = document.getElementById("theme");
-      const imageUrlInput = document.getElementById("image-url");
-      const resetBtn = document.getElementById("reset-btn");
-
-      const voucherLeftName = document.getElementById("voucher-left-name");
-      const voucherLeftSubtitle = document.getElementById("voucher-left-subtitle");
-      const voucherMainTitle = document.getElementById("voucher-main-title");
-      const voucherSubtitle = document.getElementById("voucher-subtitle");
-      const voucherProduct = document.getElementById("voucher-product");
-      const voucherNote = document.getElementById("voucher-note");
-      const voucherPhone = document.getElementById("voucher-phone");
-      const voucherFacebook = document.getElementById("voucher-facebook");
-      const voucherImage = document.getElementById("voucher-image");
-      const downloadBtn = document.getElementById("download-btn");
-
-      // Data atual em PT
-      function updateDate() {
-        const now = new Date();
-        const formatted = now.toLocaleDateString("pt-PT", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric"
-        });
-      }
-
-      updateDate();
-
-      // Atualizar tema
-      function updateTheme(theme) {
-        voucher.className = "voucher theme-" + theme;
-      }
-
-      // Atualizar textos
-      function updateText() {
-        const title = titleInput.value.trim();
-        const subtitleValue = subtitleInput.value.trim() || "Osteopatia, Massagens e Tratamentos de Estética";
-        const product = productInput.value.trim() || "Sessão de Massagem Relaxante";
-        const noteValue = noteInput.value.trim();
-
-        voucherLeftName.textContent = title;
-        voucherMainTitle.textContent = "Vale Oferta";
-        voucherSubtitle.textContent = subtitleValue.endsWith(".") ? subtitleValue : subtitleValue + ".";
-        voucherProduct.textContent = product;
-
-        if (noteValue) {
-          voucherNote.textContent = noteValue;
-          voucherNote.style.opacity = "0.85";
-        } else {
-          voucherNote.textContent = "";
-          voucherNote.style.opacity = "0.7";
+        // Data atual em PT
+        function updateDate() {
+          const now = new Date();
+          const formatted = now.toLocaleDateString("pt-PT", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          });
         }
 
-        const phone = phoneInput.value.trim() || "932 306 630";
-        voucherPhone.textContent = phone;
+        updateDate();
 
-        const fb = facebookInput.value.trim() || "facebook.com/lilianaguerra.osteopatia";
-        voucherFacebook.textContent = fb;
-      }
+        // Atualizar tema
+        function updateTheme(theme) {
+          voucher.className = "voucher theme-" + theme;
+        }
 
-      // Presets de imagem
-      const IMAGE_PRESETS = {
-        spa: 'https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=1600',
-        stones: "https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        face: "https://images.pexels.com/photos/3738349/pexels-photo-3738349.jpeg?auto=compress&cs=tinysrgb&w=1600"
-      };
+        // Atualizar textos
+        function updateText() {
+          const title = titleInput.value.trim();
+          const subtitleValue =
+            subtitleInput.value.trim() || "Osteopatia · Massagem · Estética";
+          const product =
+            productInput.value.trim() || "Sessão de Massagem Relaxante";
 
-      function updateImageFromPreset(preset) {
-        const url = IMAGE_PRESETS[preset] || IMAGE_PRESETS["spa"];
-        voucherImage.style.backgroundImage =
-          `radial-gradient(circle at 0 0, rgba(255,255,255,0.35) 0, rgba(0,0,0,0) 40%), url("${url}")`;
-      }
+          voucherLeftName.textContent = title;
+          voucherMainTitle.textContent = "Vale Oferta";
+          voucherSubtitle.textContent = subtitleValue;
+          voucherProduct.textContent = product;
 
-      function updateImageFromUrl() {
-        const url = imageUrlInput.value.trim();
-        if (!url) {
-          // Volta ao preset seleccionado
-          const checkedPreset = document.querySelector("input[name='imagePreset']:checked");
-          if (checkedPreset) {
-            updateImageFromPreset(checkedPreset.value);
+          const recipientValue =
+            recipientInput.value.trim() || "Nome do Cliente";
+          voucherRecipient.textContent = recipientValue;
+
+          const phone = phoneInput.value.trim() || "932 306 630";
+          voucherPhone.textContent = phone;
+
+          const fb =
+            facebookInput.value.trim() ||
+            "facebook.com/lilianaguerra.osteopatia";
+          voucherFacebook.textContent = fb;
+        }
+
+        // Presets de imagem
+        const IMAGE_PRESETS = {
+          spa: "https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=1600",
+          stones:
+            "https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=1600",
+          face: "https://images.pexels.com/photos/3738349/pexels-photo-3738349.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        };
+
+        function updateImageFromPreset(preset) {
+          const url = IMAGE_PRESETS[preset] || IMAGE_PRESETS["spa"];
+          voucherImage.style.backgroundImage = `radial-gradient(circle at 0 0, rgba(255,255,255,0.35) 0, rgba(0,0,0,0) 40%), url("${url}")`;
+        }
+
+        function updateImageFromUrl() {
+          const url = imageUrlInput.value.trim();
+          if (!url) {
+            // Volta ao preset seleccionado
+            const checkedPreset = document.querySelector(
+              "input[name='imagePreset']:checked"
+            );
+            if (checkedPreset) {
+              updateImageFromPreset(checkedPreset.value);
+            }
+            return;
           }
-          return;
+          voucherImage.style.backgroundImage = `radial-gradient(circle at 0 0, rgba(255,255,255,0.35) 0, rgba(0,0,0,0) 40%), url("${url}")`;
         }
-        voucherImage.style.backgroundImage =
-          `radial-gradient(circle at 0 0, rgba(255,255,255,0.35) 0, rgba(0,0,0,0) 40%), url("${url}")`;
-      }
 
-      // Listeners
-      titleInput.addEventListener("input", updateText);
-      subtitleInput.addEventListener("input", updateText);
-      productInput.addEventListener("input", updateText);
-      noteInput.addEventListener("input", updateText);
-      phoneInput.addEventListener("input", updateText);
-      facebookInput.addEventListener("input", updateText);
+        // Listeners
+        titleInput.addEventListener("input", updateText);
+        subtitleInput.addEventListener("input", updateText);
+        productInput.addEventListener("input", updateText);
+        recipientInput.addEventListener("input", updateText);
+        phoneInput.addEventListener("input", updateText);
+        facebookInput.addEventListener("input", updateText);
 
-      themeSelect.addEventListener("change", function () {
-        updateTheme(this.value);
-      });
-
-      document.querySelectorAll("input[name='imagePreset']").forEach(function (radio) {
-        radio.addEventListener("change", function () {
-          imageUrlInput.value = "";
-          updateImageFromPreset(this.value);
+        themeSelect.addEventListener("change", function () {
+          updateTheme(this.value);
         });
-      });
 
-      imageUrlInput.addEventListener("input", function () {
-        updateImageFromUrl();
-      });
+        document
+          .querySelectorAll("input[name='imagePreset']")
+          .forEach(function (radio) {
+            radio.addEventListener("change", function () {
+              imageUrlInput.value = "";
+              updateImageFromPreset(this.value);
+            });
+          });
 
-      resetBtn.addEventListener("click", function () {
-        titleInput.value = "";
-        subtitleInput.value = "Osteopatia, Massagens e Tratamentos de Estética";
-        productInput.value = "Sessão de Massagem Relaxante";
-        noteInput.value = "Válido por 6 meses após a data de emissão. Mediante marcação prévia.";
-        phoneInput.value = "932 306 630";
-        facebookInput.value = "facebook.com/lilianaguerra.osteopatia";
-        themeSelect.value = "default";
-        document.querySelector("input[name='imagePreset'][value='spa']").checked = true;
-        imageUrlInput.value = "";
+        imageUrlInput.addEventListener("input", function () {
+          updateImageFromUrl();
+        });
+
+        resetBtn.addEventListener("click", function () {
+          titleInput.value = "";
+          subtitleInput.value = "Osteopatia · Massagem · Estética";
+          productInput.value = "Sessão de Massagem Relaxante";
+          recipientInput.value = "Nome do Cliente";
+          phoneInput.value = "932 306 630";
+          facebookInput.value = "facebook.com/lilianaguerra.osteopatia";
+          themeSelect.value = "default";
+          document.querySelector(
+            "input[name='imagePreset'][value='spa']"
+          ).checked = true;
+          imageUrlInput.value = "";
+          updateTheme("default");
+          updateImageFromPreset("spa");
+          updateText();
+          updateDate();
+        });
+
+        downloadBtn.addEventListener("click", async function () {
+          downloadBtn.disabled = true;
+          downloadBtn.style.opacity = "0.6";
+          downloadBtn.textContent = "⏳ A processar...";
+
+          try {
+            const canvas = await html2canvas(voucher, {
+              scale: 2,
+              useCORS: true,
+              logging: false,
+              backgroundColor: "#ffffff",
+              allowTaint: true,
+            });
+
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL("image/jpeg", 0.95);
+
+            const title = titleInput.value.trim();
+            const dateStr = new Date()
+              .toLocaleDateString("pt-PT")
+              .replace(/\//g, "-");
+            link.download = `voucher-${title
+              .replace(/\s+/g, "-")
+              .toLowerCase()}-${dateStr}.jpg`;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } catch (error) {
+            console.error("Erro ao fazer download:", error);
+            alert("Erro ao fazer download do voucher. Tente novamente.");
+          } finally {
+            downloadBtn.disabled = false;
+            downloadBtn.style.opacity = "1";
+            downloadBtn.innerHTML =
+              '<span class="icon">⬇</span>\n              Download do Voucher';
+          }
+        });
+
+        // Inicialização
         updateTheme("default");
         updateImageFromPreset("spa");
         updateText();
-        updateDate();
-      });
-
-      downloadBtn.addEventListener("click", async function () {
-        downloadBtn.disabled = true;
-        downloadBtn.style.opacity = "0.6";
-        downloadBtn.textContent = "⏳ A processar...";
-
-        try {
-          const canvas = await html2canvas(voucher, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            backgroundColor: "#ffffff",
-            allowTaint: true
-          });
-
-          const link = document.createElement("a");
-          link.href = canvas.toDataURL("image/jpeg", 0.95);
-          
-          const title = titleInput.value.trim();
-          const dateStr = new Date().toLocaleDateString("pt-PT").replace(/\//g, "-");
-          link.download = `voucher-${title.replace(/\s+/g, "-").toLowerCase()}-${dateStr}.jpg`;
-          
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } catch (error) {
-          console.error("Erro ao fazer download:", error);
-          alert("Erro ao fazer download do voucher. Tente novamente.");
-        } finally {
-          downloadBtn.disabled = false;
-          downloadBtn.style.opacity = "1";
-          downloadBtn.innerHTML = '<span class="icon">⬇</span>\n              Download do Voucher';
-        }
-      });
-
-      // Inicialização
-      updateTheme("default");
-      updateImageFromPreset("spa");
-      updateText();
-    })();
-  </script>
-</body>
+      })();
+    </script>
+  </body>
 </html>
